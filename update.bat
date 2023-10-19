@@ -16,4 +16,5 @@ exit
 echo Pulling %1
 cd %1
 git pull
-echo.
+
+@echo off
