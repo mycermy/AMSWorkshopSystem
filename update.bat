@@ -8,7 +8,7 @@ cls
 echo Updating AMSWorkshopSystem
 
 @echo off
-@for /F %%i in (repo_paths.txt) do call :pull_repo %%i
+rem for /F %%i in (repo_paths.txt) do call :pull_repo %%i
 call :pull_repo
 pause
 exit
