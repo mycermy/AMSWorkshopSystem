@@ -10,6 +10,9 @@ echo Updating AMSWorkshopSystem
 @echo off
 rem for /F %%i in (repo_paths.txt) do call :pull_repo %%i
 call :pull_repo
+
+rem  call :reset_repo
+
 pause
 exit
 
@@ -17,5 +20,12 @@ exit
 echo Pulling %1
 cd %1
 git pull
+
+
+:reset_repo
+echo Pulling %1
+cd %1
+git reset --hard
+
 
 @echo off
