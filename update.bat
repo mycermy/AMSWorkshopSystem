@@ -9,8 +9,8 @@ echo Updating AMSWorkshopSystem
 
 :menu
 echo.
-echo 1. Pull Git Repository
-echo 2. Hard Reset Repository
+echo 1. Update
+echo 2. Reset
 echo 3. Exit
 set /p choice="Enter your choice (1/2/3): "
 
@@ -27,16 +27,17 @@ if "%choice%"=="1" (
 
 :: Timer (1 minute delay)
 timeout /t 60 >nul
-
-exit
+goto :eof
 
 :pull_repo
+REM Pull Git Repository
 echo Pulling %1
 cd %1
 git pull
 goto :eof
 
 :reset_repo
+REM Hard Reset Repository
 set /p "password=Enter the password for hard reset: "
 if "%password%"=="hardreset" (
     echo Resetting repo %1
@@ -47,3 +48,6 @@ if "%password%"=="hardreset" (
     echo Incorrect password. Operation canceled.
 )
 goto :eof
+
+:eof
+exit
