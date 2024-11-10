@@ -17,31 +17,25 @@ echo.
 echo 1. Update
 echo 2. Reset
 echo 3. Exit
-set /p choice="Enter your choice (1/2/3): "
+choice /c 123 /t 10 /d 3 /m "Enter your choice (1/2/3)"
 
-if "%choice%"=="1" (
-    call :pull_repo
-    exit
-) else if "%choice%"=="2" (
+if errorlevel 3 (
+    echo Timeout reached or Exit selected. Exiting...
+    exit /b
+) else if errorlevel 2 (
     call :reset_repo
-    exit
-) else if "%choice%"=="3" (
-    exit
-) else (
-    echo Invalid choice. Please select 1, 2, or 3.
-    goto menu
+    exit /b
+) else if errorlevel 1 (
+    call :pull_repo
+    exit /b
 )
-
-:: Timer (1 minute delay)
-timeout /t 60 >nul
-goto eof
 
 :pull_repo
 REM Pull Git Repository
 echo Pulling repository
 cd %1
 git pull
-goto eof
+goto :eof
 
 :reset_repo
 REM Hard Reset Repository
@@ -54,7 +48,4 @@ if "%password%"=="hardreset" (
 ) else (
     echo Incorrect password. Operation canceled.
 )
-goto eof
-
-:eof
-exit
+goto :eof
